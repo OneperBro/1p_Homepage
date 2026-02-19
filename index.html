@@ -9,252 +9,253 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
-    
-    <!-- fullPage.js -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.min.css">
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Navigation Dots (fullPage.js 자동 생성) -->
     
-    <!-- Main Container -->
-    <div id="fullpage">
-        
-        <!-- Section 1: Hero -->
-        <div class="section" id="section-hero">
-            <canvas id="hero-canvas"></canvas>
-            <div class="container">
-                <div class="hero-content">
-                    <div class="hero-label" data-animate>CREATIVE PLANNING AGENCY</div>
-                    <h1 class="hero-title" data-animate>
-                        기획이 <span class="accent">1%</span>만 달라져도,<br>
-                        결과는 <span class="accent">100%</span> 달라집니다
-                    </h1>
-                    <p class="hero-subtitle" data-animate>
-                        AI 시대, 누구나 만들 수 있지만<br>
-                        모두가 기획할 수는 없습니다
+    <!-- Section 1: Hero with Scroll Transform -->
+    <section class="section hero-section" id="hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-label">CREATIVE PLANNING AGENCY</div>
+                <div class="hero-title-container">
+                    <h1 class="hero-brand">ONEPERCENT</h1>
+                    <h2 class="hero-subtitle-scroll">
+                        <span class="accent">1%</span>의 기획으로<BR> <span class="accent">1000%</span>의 창작물을 경험하세요
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Section 2: AI Reality Check -->
+    <section class="section" id="section-philosophy">
+        <canvas id="philosophy-canvas"></canvas>
+        <div class="container">
+            <div class="content-wrapper">
+                <div class="section-number">01</div>
+                <h2 class="section-title">AI, 정말 쉬울까요?</h2>
+                
+                <div class="reality-grid">
+                    <div class="reality-item" data-scroll-fade>
+                        <div class="reality-icon">😰</div>
+                        <h3>프롬프트만 바꿨을 뿐인데</h3>
+                        <p>조금만 수정했는데 완전히 다른 결과물이 나와버렸어요. 처음부터 다시 시작해야 할까요?</p>
+                    </div>
+                    
+                    <div class="reality-item" data-scroll-fade>
+                        <div class="reality-icon">🔄</div>
+                        <h3>매번 업데이트되는 AI</h3>
+                        <p>어제 되던 방법이 오늘은 안 돼요. 계속 변하는 AI 트렌드를 어떻게 따라가죠?</p>
+                    </div>
+                    
+                    <div class="reality-item" data-scroll-fade>
+                        <div class="reality-icon">💸</div>
+                        <h3>불필요한 토큰 낭비</h3>
+                        <p>이것저것 시도하다 보니 비용만 늘어나고, 결과는 여전히 만족스럽지 않아요.</p>
+                    </div>
+                    
+                    <div class="reality-item" data-scroll-fade>
+                        <div class="reality-icon">🤔</div>
+                        <h3>다들 쉽게 만드는데 나만...</h3>
+                        <p>남들은 쉽게 만든다던데, 왜 나만 원하는 결과가 안 나올까요?</p>
+                    </div>
+                </div>
+                
+                <div class="insight-box" data-scroll-fade>
+                    <h3>문제는 AI가 아니라 <span class="accent">기획의 부재</span>입니다</h3>
+                    <p>AI는 도구일 뿐, 명확한 목적과 방향 없이는<br>
+                    아무리 좋은 도구도 제대로 된 결과를 만들 수 없습니다.</p>
+                    <div class="insight-highlight">
+                        <strong>ONEPERCENT는 AI를 사용하기 전에 먼저 묻습니다:</strong><br>
+                        "무엇을 만들 것인가?"가 아니라<br>
+                        <span class="accent-text">"왜 만들어야 하는가?"</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Service -->
+    <section class="section" id="section-service">
+        <canvas id="service-canvas"></canvas>
+        <div class="container">
+            <div class="content-wrapper">
+                <div class="section-number">02</div>
+                <h2 class="section-title">WHAT WE DO</h2>
+                <p class="section-subtitle" data-scroll-fade>
+                    ONEPERCENT는 '제작'을 팔지 않습니다.<br>
+                    <strong>'성과를 만드는 콘텐츠 기획'</strong>을 제공합니다.
+                </p>
+                <div class="service-grid">
+                    <div class="service-item" data-scroll-fade>
+                        <div class="service-icon">
+                            <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                                <path d="M30 10L40 20L30 30L20 20L30 10Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <path d="M30 30L40 40L30 50L20 40L30 30Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <line x1="30" y1="20" x2="30" y2="40" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3>전략 기획</h3>
+                        <p>시장/경쟁사 분석부터 타겟 페르소나 정의, 콘텐츠 전략 수립, 메시지 프레임 설계까지</p>
+                    </div>
+                    <div class="service-item" data-scroll-fade>
+                        <div class="service-icon">
+                            <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                                <rect x="15" y="20" width="30" height="20" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <circle cx="30" cy="30" r="5" fill="currentColor"/>
+                                <line x1="20" y1="15" x2="40" y2="15" stroke="currentColor" stroke-width="2"/>
+                                <line x1="20" y1="45" x2="40" y2="45" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3>UA 크리에이티브</h3>
+                        <p>성과 중심의 게임 광고 영상/이미지 제작과 데이터 기반 최적화</p>
+                    </div>
+                    <div class="service-item" data-scroll-fade>
+                        <div class="service-icon">
+                            <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                                <circle cx="30" cy="30" r="15" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <path d="M30 20 L35 30 L30 40 L25 30 Z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <h3>브랜드 콘텐츠</h3>
+                        <p>브랜드의 본질을 담은 필름부터 바이럴 콘텐츠까지</p>
+                    </div>
+                    <div class="service-item" data-scroll-fade>
+                        <div class="service-icon">
+                            <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                                <path d="M20 20 L40 20 L35 30 L40 40 L20 40 L25 30 Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <circle cx="30" cy="30" r="3" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <h3>AI 크리에이티브</h3>
+                        <p>AI 기반 빠른 소재 생성과 데이터 기반 자동 최적화</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Process -->
+    <section class="section" id="section-process">
+        <canvas id="process-canvas"></canvas>
+        <div class="container">
+            <div class="content-wrapper">
+                <div class="section-number">03</div>
+                <h2 class="section-title">HOW WE WORK</h2>
+                <p class="section-subtitle" data-scroll-fade>
+                    ONEPERCENT만의 4단계 기획 프로세스
+                </p>
+                <div class="process-timeline">
+                    <div class="process-item" data-scroll-fade>
+                        <div class="process-step">
+                            <div class="step-number">01</div>
+                            <div class="step-line"></div>
+                        </div>
+                        <div class="process-content">
+                            <h3>깊이 파기<span class="en">Deep Dive</span></h3>
+                            <p>제품/서비스 본질 분석, 시장 환경 및 경쟁사 리서치, VOC 수집 및 분석</p>
+                            <span class="process-duration">3-5일</span>
+                        </div>
+                    </div>
+                    <div class="process-item" data-scroll-fade>
+                        <div class="process-step">
+                            <div class="step-number">02</div>
+                            <div class="step-line"></div>
+                        </div>
+                        <div class="process-content">
+                            <h3>각도 찾기<span class="en">Angle Discovery</span></h3>
+                            <p>360° 제품 속성 분석, 핵심/확장/반전 속성 매트릭스, 차별화 포인트 도출</p>
+                            <span class="process-duration">5-7일</span>
+                        </div>
+                    </div>
+                    <div class="process-item" data-scroll-fade>
+                        <div class="process-step">
+                            <div class="step-number">03</div>
+                            <div class="step-line"></div>
+                        </div>
+                        <div class="process-content">
+                            <h3>시안 제작<span class="en">Creative Execution</span></h3>
+                            <p>카피라이트 개발, 스토리보드 작성, 초안 영상/이미지 제작</p>
+                            <span class="process-duration">7-10일</span>
+                        </div>
+                    </div>
+                    <div class="process-item" data-scroll-fade>
+                        <div class="process-step">
+                            <div class="step-number">04</div>
+                        </div>
+                        <div class="process-content">
+                            <h3>검증 & 진화<span class="en">Test & Evolve</span></h3>
+                            <p>A/B 테스트 설계, 성과 데이터 모니터링, 지속적 최적화</p>
+                            <span class="process-duration">Ongoing</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: References -->
+    <section class="section" id="section-portfolio">
+        <canvas id="portfolio-canvas"></canvas>
+        <div class="container">
+            <div class="content-wrapper">
+                <div class="section-number">04</div>
+                <h2 class="section-title">REFERENCES</h2>
+                <p class="section-subtitle" data-scroll-fade>
+                    우리의 작업을 확인해보세요
+                </p>
+                <div class="references-container" data-scroll-fade>
+                    <a href="https://1per.notion.site/Creative-References-Mov-28d94c9f7eed804aaaaddcbfa717fcb3" 
+                       target="_blank" 
+                       class="references-button">
+                        <span class="btn-text">포트폴리오 확인하기</span>
+                        <svg class="btn-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Contact -->
+    <section class="section" id="section-contact">
+        <canvas id="contact-canvas"></canvas>
+        <div class="container">
+            <div class="content-wrapper contact-wrapper">
+                <div class="section-number">05</div>
+                <h2 class="section-title" data-scroll-fade>LET'S WORK TOGETHER</h2>
+                <div class="contact-content" data-scroll-fade>
+                    <p class="contact-text">
+                        당신의 브랜드에<br>
+                        <span class="accent">1%의 특별함</span>을 더하세요
                     </p>
-                    <div class="hero-cta" data-animate>
-                        <a href="#section-contact" class="btn-primary">프로젝트 문의하기</a>
-                        <a href="#section-portfolio" class="btn-secondary">포트폴리오 보기</a>
+                    <div class="contact-email-box">
+                        <p class="contact-label">Creative Team</p>
+                        <a href="mailto:ct@1per.kr" class="contact-email">ct@1per.kr</a>
                     </div>
                 </div>
-            </div>
-            <div class="scroll-indicator">
-                <span>Scroll</span>
-                <div class="scroll-line"></div>
-            </div>
-        </div>
-
-        <!-- Section 2: Philosophy -->
-        <div class="section" id="section-philosophy">
-            <canvas id="philosophy-canvas"></canvas>
-            <div class="container">
-                <div class="content-wrapper">
-                    <div class="section-number" data-animate>01</div>
-                    <h2 class="section-title" data-animate>WHY ONEPERCENT?</h2>
-                    <div class="philosophy-content">
-                        <div class="philosophy-main" data-animate>
-                            <h3>1%의 기획력 차이가</h3>
-                            <div class="stats-grid">
-                                <div class="stat-item">
-                                    <div class="stat-number">300<span>%</span></div>
-                                    <div class="stat-label">클릭률 향상</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-number">50<span>%</span></div>
-                                    <div class="stat-label">CPI 절감</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-number">10<span>x</span></div>
-                                    <div class="stat-label">콘텐츠 수명 연장</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="philosophy-text" data-animate>
-                            <p>콘텐츠는 누구나 만들 수 있습니다.<br>
-                            하지만 <strong>'왜 만드는가'</strong>를 아는 건 다른 문제입니다.</p>
-                            <p>ONEPERCENT는 제작 전에 먼저 묻습니다.<br>
-                            이 콘텐츠는 누구를 위한 것인가?<br>
-                            어떤 행동을 이끌어내야 하는가?<br>
-                            시장에서 어떻게 차별화될 것인가?</p>
-                            <p class="emphasis">답이 명확할 때, 제작은 그저 실행일 뿐입니다.</p>
-                        </div>
-                    </div>
+                <div class="footer" data-scroll-fade>
+                    <div class="footer-logo">ONEPERCENT</div>
+                    <div class="footer-copy">© 2025 ONEPERCENT. All rights reserved.</div>
                 </div>
             </div>
         </div>
-
-        <!-- Section 3: Service -->
-        <div class="section" id="section-service">
-            <canvas id="service-canvas"></canvas>
-            <div class="container">
-                <div class="content-wrapper">
-                    <div class="section-number" data-animate>02</div>
-                    <h2 class="section-title" data-animate>WHAT WE DO</h2>
-                    <p class="section-subtitle" data-animate>
-                        ONEPERCENT는 '제작'을 팔지 않습니다.<br>
-                        <strong>'성과를 만드는 콘텐츠 기획'</strong>을 제공합니다.
-                    </p>
-                    <div class="service-grid">
-                        <div class="service-item" data-animate>
-                            <div class="service-number">01</div>
-                            <h3>전략 기획</h3>
-                            <p>시장/경쟁사 분석부터 타겟 페르소나 정의, 콘텐츠 전략 수립, 메시지 프레임 설계까지</p>
-                            <ul>
-                                <li>시장/경쟁사 분석</li>
-                                <li>타겟 페르소나 정의</li>
-                                <li>콘텐츠 전략 수립</li>
-                                <li>메시지 프레임 설계</li>
-                            </ul>
-                        </div>
-                        <div class="service-item" data-animate>
-                            <div class="service-number">02</div>
-                            <h3>UA 크리에이티브</h3>
-                            <p>성과 중심의 게임 광고 영상/이미지 제작과 데이터 기반 최적화</p>
-                            <ul>
-                                <li>게임 광고 영상/이미지</li>
-                                <li>A/B 테스트 다변형 소재</li>
-                                <li>플랫폼별 최적화</li>
-                                <li>성과 분석 & 개선</li>
-                            </ul>
-                        </div>
-                        <div class="service-item" data-animate>
-                            <div class="service-number">03</div>
-                            <h3>브랜드 콘텐츠</h3>
-                            <p>브랜드의 본질을 담은 필름부터 바이럴 콘텐츠까지</p>
-                            <ul>
-                                <li>브랜드 필름</li>
-                                <li>소셜 미디어 콘텐츠</li>
-                                <li>바이럴 콘텐츠 기획/제작</li>
-                                <li>크리에이터 협업</li>
-                            </ul>
-                        </div>
-                        <div class="service-item" data-animate>
-                            <div class="service-number">04</div>
-                            <h3>AI 크리에이티브</h3>
-                            <p>AI 기반 빠른 소재 생성과 데이터 기반 자동 최적화</p>
-                            <ul>
-                                <li>AI 대량 소재 생성</li>
-                                <li>퍼포먼스 자동 최적화</li>
-                                <li>48시간 내 제작 가능</li>
-                                <li>비용 효율 극대화</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 4: Process -->
-        <div class="section" id="section-process">
-            <canvas id="process-canvas"></canvas>
-            <div class="container">
-                <div class="content-wrapper">
-                    <div class="section-number" data-animate>03</div>
-                    <h2 class="section-title" data-animate>HOW WE WORK</h2>
-                    <p class="section-subtitle" data-animate>
-                        ONEPERCENT만의 4단계 기획 프로세스
-                    </p>
-                    <div class="process-timeline">
-                        <div class="process-item" data-animate>
-                            <div class="process-step">
-                                <div class="step-number">01</div>
-                                <div class="step-line"></div>
-                            </div>
-                            <div class="process-content">
-                                <h3>깊이 파기<span class="en">Deep Dive</span></h3>
-                                <p>제품/서비스 본질 분석, 시장 환경 및 경쟁사 리서치, VOC 수집 및 분석</p>
-                                <span class="process-duration">3-5일</span>
-                            </div>
-                        </div>
-                        <div class="process-item" data-animate>
-                            <div class="process-step">
-                                <div class="step-number">02</div>
-                                <div class="step-line"></div>
-                            </div>
-                            <div class="process-content">
-                                <h3>각도 찾기<span class="en">Angle Discovery</span></h3>
-                                <p>360° 제품 속성 분석, 핵심/확장/반전 속성 매트릭스, 차별화 포인트 도출</p>
-                                <span class="process-duration">5-7일</span>
-                            </div>
-                        </div>
-                        <div class="process-item" data-animate>
-                            <div class="process-step">
-                                <div class="step-number">03</div>
-                                <div class="step-line"></div>
-                            </div>
-                            <div class="process-content">
-                                <h3>시안 제작<span class="en">Creative Execution</span></h3>
-                                <p>카피라이트 개발, 스토리보드 작성, 초안 영상/이미지 제작</p>
-                                <span class="process-duration">7-10일</span>
-                            </div>
-                        </div>
-                        <div class="process-item" data-animate>
-                            <div class="process-step">
-                                <div class="step-number">04</div>
-                            </div>
-                            <div class="process-content">
-                                <h3>검증 & 진화<span class="en">Test & Evolve</span></h3>
-                                <p>A/B 테스트 설계, 성과 데이터 모니터링, 지속적 최적화</p>
-                                <span class="process-duration">Ongoing</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 5: Portfolio -->
-        <div class="section" id="section-portfolio">
-            <canvas id="portfolio-canvas"></canvas>
-            <div class="container">
-                <div class="content-wrapper">
-                    <div class="section-number" data-animate>04</div>
-                    <h2 class="section-title" data-animate>OUR WORK</h2>
-                    <p class="section-subtitle" data-animate>
-                        숫자로 증명된 기획력
-                    </p>
-                    <div id="portfolio-grid" class="portfolio-grid">
-                        <!-- JavaScript로 동적 생성 -->
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 6: Contact -->
-        <div class="section" id="section-contact">
-            <canvas id="contact-canvas"></canvas>
-            <div class="container">
-                <div class="content-wrapper contact-wrapper">
-                    <div class="section-number" data-animate>05</div>
-                    <h2 class="section-title" data-animate>LET'S WORK TOGETHER</h2>
-                    <div class="contact-content" data-animate>
-                        <p class="contact-text">
-                            여러분의 브랜드를<br>
-                            1% 다르게 만들어보세요
-                        </p>
-                        <a href="mailto:creative@1per.kr" class="contact-email">
-                            creative@1per.kr
-                        </a>
-                    </div>
-                    <div class="footer" data-animate>
-                        <div class="footer-logo">ONEPERCENT</div>
-                        <div class="footer-copy">© 2025 ONEPERCENT. All rights reserved.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    </section>
 
     </div>
 
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.min.js"></script>
-    <script src="portfolio-data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

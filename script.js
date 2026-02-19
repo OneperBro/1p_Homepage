@@ -1,142 +1,63 @@
 // ============================================
-// ONEPERCENT Website - Main JavaScript
+// ONEPERCENT Website V2 - Main JavaScript
 // ============================================
 
-// ============================================
-// 1. FULLPAGE.JS INITIALIZATION
-// ============================================
 document.addEventListener('DOMContentLoaded', function() {
-    new fullpage('#fullpage', {
-        // Navigation
-        navigation: true,
-        navigationPosition: 'right',
-        navigationTooltips: ['Home', 'Philosophy', 'Service', 'Process', 'Portfolio', 'Contact'],
-        showActiveTooltip: false,
-        
-        // Scrolling
-        scrollingSpeed: 700,
-        autoScrolling: true,
-        fitToSection: true,
-        scrollBar: false,
-        
-        // Accessibility
-        keyboardScrolling: true,
-        animateAnchor: true,
-        recordHistory: true,
-        
-        // Design
-        verticalCentered: true,
-        
-        // Events
-        onLeave: function(origin, destination, direction) {
-            // 섹션 떠날 때
-        },
-        afterLoad: function(origin, destination, direction) {
-            // 섹션 도착했을 때
-            initCanvasForSection(destination.index);
-        }
-    });
-    
-    // Portfolio 렌더링
-    renderPortfolio();
+    initScrollAnimations();
+    initCanvasAnimations();
 });
 
 // ============================================
-// 2. PORTFOLIO RENDERING
+// 1. SCROLL FADE ANIMATIONS
 // ============================================
-function renderPortfolio() {
-    const portfolioGrid = document.getElementById('portfolio-grid');
+function initScrollAnimations() {
+    const elements = document.querySelectorAll('[data-scroll-fade]');
     
-    if (!portfolioGrid || !portfolioItems) return;
-    
-    portfolioGrid.innerHTML = '';
-    
-    portfolioItems.forEach((item, index) => {
-        const portfolioCard = document.createElement('div');
-        portfolioCard.className = 'portfolio-item';
-        portfolioCard.setAttribute('data-animate', '');
-        portfolioCard.style.transitionDelay = `${0.1 * (index + 1)}s`;
-        
-        portfolioCard.innerHTML = `
-            <div class="portfolio-thumbnail ${item.thumbnail ? '' : 'placeholder'}">
-                ${item.thumbnail ? `<img src="${item.thumbnail}" alt="${item.title}">` : ''}
-            </div>
-            <div class="portfolio-info">
-                <div class="portfolio-category">${item.category}</div>
-                <h3>${item.title}</h3>
-                <div class="portfolio-client">${item.client}</div>
-                <div class="portfolio-results">
-                    ${item.results.map(result => `<span class="result-tag">${result}</span>`).join('')}
-                </div>
-            </div>
-        `;
-        
-        portfolioGrid.appendChild(portfolioCard);
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, index * 100);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
     });
+    
+    elements.forEach(el => observer.observe(el));
 }
 
 // ============================================
-// 3. CANVAS ANIMATIONS
+// 2. CANVAS ANIMATIONS
 // ============================================
 const canvasAnimations = {};
 
-function initCanvasForSection(index) {
-    const canvasIds = [
-        'hero-canvas',
-        'philosophy-canvas',
-        'service-canvas',
-        'process-canvas',
-        'portfolio-canvas',
-        'contact-canvas'
-    ];
-    
-    const canvasId = canvasIds[index];
-    if (!canvasId) return;
-    
-    // 기존 애니메이션 정리
-    Object.keys(canvasAnimations).forEach(id => {
-        if (id !== canvasId && canvasAnimations[id]) {
-            canvasAnimations[id].stop = true;
-        }
-    });
-    
-    // 새 애니메이션 시작
-    const canvas = document.getElementById(canvasId);
-    if (!canvas) return;
-    
-    switch(index) {
-        case 0:
-            initHeroCanvas(canvas);
-            break;
-        case 1:
-            initPhilosophyCanvas(canvas);
-            break;
-        case 2:
-            initServiceCanvas(canvas);
-            break;
-        case 3:
-            initProcessCanvas(canvas);
-            break;
-        case 4:
-            initPortfolioCanvas(canvas);
-            break;
-        case 5:
-            initContactCanvas(canvas);
-            break;
-    }
+function initCanvasAnimations() {
+    // 각 캔버스 초기화
+    initHeroCanvas();
+    initPhilosophyCanvas();
+    initServiceCanvas();
+    initProcessCanvas();
+    initPortfolioCanvas();
+    initContactCanvas();
 }
 
 // ============================================
-// Hero Canvas - Particle Grid
+// Hero Canvas - Colorful Particles
 // ============================================
-function initHeroCanvas(canvas) {
+function initHeroCanvas() {
+    const canvas = document.getElementById('hero-canvas');
+    if (!canvas) return;
+    
     const ctx = canvas.getContext('2d');
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
     
     const particles = [];
-    const particleCount = 100;
-    const connectionDistance = 150;
+    const particleCount = 80;
+    const colors = ['#6366f1', '#8b5cf6', '#ec4899', '#10b981'];
     
     class Particle {
         constructor() {
@@ -144,7 +65,8 @@ function initHeroCanvas(canvas) {
             this.y = Math.random() * canvas.height;
             this.vx = (Math.random() - 0.5) * 0.5;
             this.vy = (Math.random() - 0.5) * 0.5;
-            this.radius = Math.random() * 2 + 1;
+            this.radius = Math.random() * 2.5 + 1;
+            this.color = colors[Math.floor(Math.random() * colors.length)];
         }
         
         update() {
@@ -158,7 +80,7 @@ function initHeroCanvas(canvas) {
         draw() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(255, 107, 53, 0.6)';
+            ctx.fillStyle = this.color;
             ctx.fill();
         }
     }
@@ -167,12 +89,7 @@ function initHeroCanvas(canvas) {
         particles.push(new Particle());
     }
     
-    const animation = { stop: false };
-    canvasAnimations['hero-canvas'] = animation;
-    
     function animate() {
-        if (animation.stop) return;
-        
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
         particles.forEach(particle => {
@@ -187,13 +104,13 @@ function initHeroCanvas(canvas) {
                 const dy = particles[i].y - particles[j].y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
                 
-                if (distance < connectionDistance) {
+                if (distance < 150) {
                     ctx.beginPath();
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
-                    const opacity = (1 - distance / connectionDistance) * 0.3;
-                    ctx.strokeStyle = `rgba(255, 107, 53, ${opacity})`;
-                    ctx.lineWidth = 0.5;
+                    const opacity = (1 - distance / 150) * 0.15;
+                    ctx.strokeStyle = `rgba(99, 102, 241, ${opacity})`;
+                    ctx.lineWidth = 1;
                     ctx.stroke();
                 }
             }
@@ -206,77 +123,40 @@ function initHeroCanvas(canvas) {
 }
 
 // ============================================
-// Philosophy Canvas - Network Nodes
+// Philosophy Canvas - Flowing Waves
 // ============================================
-function initPhilosophyCanvas(canvas) {
+function initPhilosophyCanvas() {
+    const canvas = document.getElementById('philosophy-canvas');
+    if (!canvas) return;
+    
     const ctx = canvas.getContext('2d');
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
     
-    const nodes = [];
-    const nodeCount = 50;
-    
-    class Node {
-        constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.vx = (Math.random() - 0.5) * 0.3;
-            this.vy = (Math.random() - 0.5) * 0.3;
-            this.radius = Math.random() * 3 + 1;
-        }
-        
-        update() {
-            this.x += this.vx;
-            this.y += this.vy;
-            
-            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-        }
-        
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-            ctx.fill();
-        }
-    }
-    
-    for (let i = 0; i < nodeCount; i++) {
-        nodes.push(new Node());
-    }
-    
-    const animation = { stop: false };
-    canvasAnimations['philosophy-canvas'] = animation;
+    let time = 0;
+    const colors = ['#6366f1', '#8b5cf6', '#ec4899'];
     
     function animate() {
-        if (animation.stop) return;
-        
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        time += 0.01;
         
-        nodes.forEach(node => {
-            node.update();
-            node.draw();
+        colors.forEach((color, index) => {
+            ctx.beginPath();
+            ctx.moveTo(0, canvas.height / 2);
+            
+            for (let x = 0; x < canvas.width; x += 5) {
+                const y = canvas.height / 2 + 
+                         Math.sin(x * 0.01 + time + index) * 30 * (index + 1);
+                ctx.lineTo(x, y);
+            }
+            
+            ctx.strokeStyle = color;
+            ctx.globalAlpha = 0.1;
+            ctx.lineWidth = 2;
+            ctx.stroke();
         });
         
-        // Draw connections
-        for (let i = 0; i < nodes.length; i++) {
-            for (let j = i + 1; j < nodes.length; j++) {
-                const dx = nodes[i].x - nodes[j].x;
-                const dy = nodes[i].y - nodes[j].y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                
-                if (distance < 120) {
-                    ctx.beginPath();
-                    ctx.moveTo(nodes[i].x, nodes[i].y);
-                    ctx.lineTo(nodes[j].x, nodes[j].y);
-                    const opacity = (1 - distance / 120) * 0.2;
-                    ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
-                    ctx.lineWidth = 0.5;
-                    ctx.stroke();
-                }
-            }
-        }
-        
+        ctx.globalAlpha = 1;
         requestAnimationFrame(animate);
     }
     
@@ -284,26 +164,31 @@ function initPhilosophyCanvas(canvas) {
 }
 
 // ============================================
-// Service Canvas - Floating Shapes
+// Service Canvas - Geometric Shapes
 // ============================================
-function initServiceCanvas(canvas) {
+function initServiceCanvas() {
+    const canvas = document.getElementById('service-canvas');
+    if (!canvas) return;
+    
     const ctx = canvas.getContext('2d');
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
     
     const shapes = [];
-    const shapeCount = 20;
+    const shapeCount = 15;
+    const colors = ['#6366f1', '#8b5cf6', '#ec4899', '#10b981'];
     
     class Shape {
         constructor() {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 40 + 20;
-            this.vx = (Math.random() - 0.5) * 0.2;
-            this.vy = (Math.random() - 0.5) * 0.2;
+            this.size = Math.random() * 50 + 30;
+            this.vx = (Math.random() - 0.5) * 0.3;
+            this.vy = (Math.random() - 0.5) * 0.3;
             this.rotation = Math.random() * Math.PI * 2;
             this.rotationSpeed = (Math.random() - 0.5) * 0.02;
-            this.sides = Math.floor(Math.random() * 3) + 3; // 3-6 sides
+            this.sides = Math.floor(Math.random() * 3) + 4;
+            this.color = colors[Math.floor(Math.random() * colors.length)];
         }
         
         update() {
@@ -332,7 +217,8 @@ function initServiceCanvas(canvas) {
             }
             ctx.closePath();
             
-            ctx.strokeStyle = 'rgba(255, 107, 53, 0.3)';
+            ctx.strokeStyle = this.color;
+            ctx.globalAlpha = 0.15;
             ctx.lineWidth = 2;
             ctx.stroke();
             
@@ -344,13 +230,9 @@ function initServiceCanvas(canvas) {
         shapes.push(new Shape());
     }
     
-    const animation = { stop: false };
-    canvasAnimations['service-canvas'] = animation;
-    
     function animate() {
-        if (animation.stop) return;
-        
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.globalAlpha = 1;
         
         shapes.forEach(shape => {
             shape.update();
@@ -364,24 +246,29 @@ function initServiceCanvas(canvas) {
 }
 
 // ============================================
-// Process Canvas - Flowing Lines
+// Process Canvas - Progress Lines
 // ============================================
-function initProcessCanvas(canvas) {
+function initProcessCanvas() {
+    const canvas = document.getElementById('process-canvas');
+    if (!canvas) return;
+    
     const ctx = canvas.getContext('2d');
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
     
     const lines = [];
-    const lineCount = 8;
+    const lineCount = 6;
+    const colors = ['#6366f1', '#8b5cf6', '#ec4899'];
     
     class Line {
         constructor(index) {
             this.y = (canvas.height / (lineCount + 1)) * (index + 1);
             this.points = [];
             this.speed = Math.random() * 2 + 1;
-            this.amplitude = Math.random() * 30 + 20;
+            this.amplitude = Math.random() * 25 + 15;
             this.frequency = Math.random() * 0.02 + 0.01;
             this.offset = 0;
+            this.color = colors[index % colors.length];
             
             for (let x = 0; x <= canvas.width; x += 10) {
                 this.points.push({ x, y: this.y });
@@ -404,8 +291,9 @@ function initProcessCanvas(canvas) {
                 ctx.lineTo(this.points[i].x, this.points[i].y);
             }
             
-            ctx.strokeStyle = 'rgba(255, 107, 53, 0.2)';
-            ctx.lineWidth = 1.5;
+            ctx.strokeStyle = this.color;
+            ctx.globalAlpha = 0.2;
+            ctx.lineWidth = 2;
             ctx.stroke();
         }
     }
@@ -414,13 +302,9 @@ function initProcessCanvas(canvas) {
         lines.push(new Line(i));
     }
     
-    const animation = { stop: false };
-    canvasAnimations['process-canvas'] = animation;
-    
     function animate() {
-        if (animation.stop) return;
-        
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.globalAlpha = 1;
         
         lines.forEach(line => {
             line.update();
@@ -434,31 +318,29 @@ function initProcessCanvas(canvas) {
 }
 
 // ============================================
-// Portfolio Canvas - Grid Pattern
+// Portfolio Canvas - Grid with Accent
 // ============================================
-function initPortfolioCanvas(canvas) {
+function initPortfolioCanvas() {
+    const canvas = document.getElementById('portfolio-canvas');
+    if (!canvas) return;
+    
     const ctx = canvas.getContext('2d');
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
     
-    const gridSize = 50;
+    const gridSize = 60;
     let offset = 0;
     
-    const animation = { stop: false };
-    canvasAnimations['portfolio-canvas'] = animation;
-    
     function animate() {
-        if (animation.stop) return;
-        
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
-        offset += 0.2;
+        offset += 0.3;
         if (offset > gridSize) offset = 0;
         
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+        // Grid lines
+        ctx.strokeStyle = '#e0e7ff';
         ctx.lineWidth = 1;
         
-        // Vertical lines
         for (let x = -offset; x < canvas.width; x += gridSize) {
             ctx.beginPath();
             ctx.moveTo(x, 0);
@@ -466,12 +348,21 @@ function initPortfolioCanvas(canvas) {
             ctx.stroke();
         }
         
-        // Horizontal lines
         for (let y = -offset; y < canvas.height; y += gridSize) {
             ctx.beginPath();
             ctx.moveTo(0, y);
             ctx.lineTo(canvas.width, y);
             ctx.stroke();
+        }
+        
+        // Accent dots at intersections
+        ctx.fillStyle = '#6366f1';
+        for (let x = -offset; x < canvas.width; x += gridSize) {
+            for (let y = -offset; y < canvas.height; y += gridSize) {
+                ctx.beginPath();
+                ctx.arc(x, y, 2, 0, Math.PI * 2);
+                ctx.fill();
+            }
         }
         
         requestAnimationFrame(animate);
@@ -481,40 +372,68 @@ function initPortfolioCanvas(canvas) {
 }
 
 // ============================================
-// Contact Canvas - Gradient Mesh
+// Contact Canvas - Gradient Orbs
 // ============================================
-function initContactCanvas(canvas) {
+function initContactCanvas() {
+    const canvas = document.getElementById('contact-canvas');
+    if (!canvas) return;
+    
     const ctx = canvas.getContext('2d');
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
     
-    let time = 0;
+    const orbs = [];
+    const orbCount = 3;
+    const colors = [
+        { r: 99, g: 102, b: 241 },   // Indigo
+        { r: 139, g: 92, b: 246 },   // Purple
+        { r: 236, g: 72, b: 153 }    // Pink
+    ];
     
-    const animation = { stop: false };
-    canvasAnimations['contact-canvas'] = animation;
+    class Orb {
+        constructor(index) {
+            this.x = canvas.width / 2 + (Math.random() - 0.5) * 200;
+            this.y = canvas.height / 2 + (Math.random() - 0.5) * 200;
+            this.vx = (Math.random() - 0.5) * 0.5;
+            this.vy = (Math.random() - 0.5) * 0.5;
+            this.radius = Math.random() * 100 + 100;
+            this.color = colors[index % colors.length];
+        }
+        
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            
+            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+        }
+        
+        draw() {
+            const gradient = ctx.createRadialGradient(
+                this.x, this.y, 0,
+                this.x, this.y, this.radius
+            );
+            
+            gradient.addColorStop(0, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, 0.15)`);
+            gradient.addColorStop(0.5, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, 0.08)`);
+            gradient.addColorStop(1, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, 0)`);
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+    }
+    
+    for (let i = 0; i < orbCount; i++) {
+        orbs.push(new Orb(i));
+    }
     
     function animate() {
-        if (animation.stop) return;
-        
-        time += 0.005;
-        
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
-        const gradient = ctx.createRadialGradient(
-            canvas.width / 2 + Math.sin(time) * 100,
-            canvas.height / 2 + Math.cos(time) * 100,
-            0,
-            canvas.width / 2,
-            canvas.height / 2,
-            canvas.width / 2
-        );
-        
-        gradient.addColorStop(0, 'rgba(255, 107, 53, 0.1)');
-        gradient.addColorStop(0.5, 'rgba(255, 107, 53, 0.05)');
-        gradient.addColorStop(1, 'rgba(255, 107, 53, 0)');
-        
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        orbs.forEach(orb => {
+            orb.update();
+            orb.draw();
+        });
         
         requestAnimationFrame(animate);
     }
@@ -526,11 +445,17 @@ function initContactCanvas(canvas) {
 // Window Resize Handler
 // ============================================
 window.addEventListener('resize', function() {
-    Object.keys(canvasAnimations).forEach(id => {
+    const canvases = ['hero-canvas', 'philosophy-canvas', 'service-canvas', 
+                     'process-canvas', 'portfolio-canvas', 'contact-canvas'];
+    
+    canvases.forEach(id => {
         const canvas = document.getElementById(id);
         if (canvas) {
             canvas.width = canvas.offsetWidth;
             canvas.height = canvas.offsetHeight;
         }
     });
+    
+    // Reinitialize canvas animations
+    initCanvasAnimations();
 });
