@@ -687,6 +687,21 @@ canvas {
     color: var(--color-text-secondary);
 }
 
+.footer-notice {
+    margin-top: 0.5rem;
+}
+
+.footer-notice a {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-base);
+}
+
+.footer-notice a:hover {
+    color: var(--color-accent);
+}
+
 /* ============================================
    RESPONSIVE
    ============================================ */
